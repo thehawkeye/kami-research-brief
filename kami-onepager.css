@@ -477,12 +477,56 @@ tbody tr:nth-child(even) td { background: #f7f5ef; }
 }
 
 /* ==========================================================================
+   PAGE BREAK CONTROL — critical for clean PDF export
+   ========================================================================== */
+
+/* Prevent a block from splitting across pages */
+.page-break-avoid,
+.pullquote, .callout, .metric, .metrics-row,
+.timeline-item, .kp-item, .col-item,
+.header, .key-points, .two-col {
+  break-inside: avoid;
+  page-break-inside: avoid;
+  widows: 3;
+  orphans: 3;
+}
+
+/* Don't put a heading at the bottom of a page */
+h2, h3 {
+  break-after: avoid;
+  page-break-after: avoid;
+}
+
+/* Don't split table rows */
+tr {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+/* Tables repeat the header on each page */
+thead {
+  display: table-header-group;
+  break-inside: avoid;
+}
+
+/* Allow page to flow beyond one A4 height (multi-page document) */
+/* height:auto only needed in print; screen keeps min-height:297mm */
+
+/* Ensure first page of a multi-page doc doesn't have pn-top visible */
+.page:first-of-type .pn-top {
+  /* show on all pages */
+}
+
+/* ==========================================================================
    PRINT / SCREEN
    ========================================================================== */
 @media print {
   body { background: none; }
-  .page { box-shadow: none; width: 100%; min-height: auto; }
-  .pn-top { display: none; }
+  .page { box-shadow: none; width: 100%; min-height: 0; height: auto; padding: 16mm 20mm 14mm; }
+  .page:last-child .doc-footer { display: flex; }
+  .page:not(:last-child) .doc-footer { display: none; }
+  /* Scale to fit A4 precisely */
+  @page { size: 210mm 297mm; margin: 0; }
 }
 
 @media screen {
