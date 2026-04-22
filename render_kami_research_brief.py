@@ -184,11 +184,11 @@ def main() -> None:
     args = parser.parse_args()
 
     theme_dir = pathlib.Path(__file__).resolve().parent
-    css_path  = theme_dir / "kami-research-brief.css"
+    css_path  = theme_dir / "kami-onepager.css"
 
     if not css_path.exists():
         sys.stderr.write(
-            f"ERROR: kami-research-brief.css not found in {theme_dir}\n"
+            f"ERROR: kami-onepager.css not found in {theme_dir}\n"
         )
         sys.exit(1)
 
