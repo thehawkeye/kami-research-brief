@@ -1,0 +1,5 @@
+__pycache__/
+*.pyc
+example-output/
+*.pdf
+*.cleaned.md

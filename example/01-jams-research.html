@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Platform Entrenchment &amp; JAMS Paper</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500;600&display=swap');
+:root {
+  --parchment:#f5f4ed; --ivory:#faf9f5; --warm-sand:#e8e6dc;
+  --brand:#1B365D; --near-black:#141413; --dark-warm:#3d3d3a;
+  --charcoal:#4d4c48; --olive:#5e5d59; --stone:#87867f;
+  --border-cream:#e8e5da; --border-warm:#e0ddd2; --border-soft:#e5e3d8;
+  --serif:"Newsreader",Georgia,"Times New Roman",serif;
+  --sans:"Inter",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+}
+@page { size:A4; margin:0; background:var(--parchment); }
+* { box-sizing:border-box; margin:0; padding:0; }
+html,body { margin:0; padding:0; background:var(--parchment); color:var(--near-black); -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+.page { width:210mm; min-height:297mm; background:var(--parchment); padding:16mm 20mm 14mm; position:relative; }
+h1 { font-family:var(--serif); font-size:28pt; font-weight:500; line-height:1.08; color:var(--near-black); letter-spacing:-0.4px; margin:0 0 6pt; }
+h2 { font-family:var(--serif); font-size:11pt; font-weight:500; color:var(--near-black); margin:16pt 0 5pt; border-left:2.5pt solid var(--brand); padding-left:7pt; border-radius:1.5pt; }
+p { font-family:var(--serif); font-size:9pt; font-weight:400; line-height:1.55; color:var(--charcoal); margin:0 0 7pt; }
+.meta { font-family:var(--sans); font-size:7.5pt; color:var(--stone); letter-spacing:0.2px; margin:0 0 3pt; line-height:1.4; }
+.header { padding-bottom:13pt; margin-bottom:15pt; border-bottom:0.75pt solid var(--brand); }
+.header-eyebrow { font-family:var(--sans); font-size:7pt; font-weight:600; letter-spacing:1.4px; text-transform:uppercase; color:var(--stone); margin:0 0 7pt; }
+.header-subtitle { font-family:var(--serif); font-size:10pt; line-height:1.5; color:var(--olive); margin:0 0 7pt; }
+.header-meta { display:flex; gap:14pt; flex-wrap:wrap; margin-top:7pt; }
+.tags { display:flex; gap:4pt; flex-wrap:wrap; margin-top:7pt; }
+.tag { background:#EEF2F7; color:var(--brand); font-family:var(--sans); font-size:6.5pt; font-weight:600; padding:1.5pt 5pt; border-radius:2pt; letter-spacing:0.4pt; text-transform:uppercase; }
+hr { border:none; border-top:0.3pt solid var(--border-warm); margin:13pt 0; }
+.pullquote { margin:14pt -3mm 14pt -3mm; padding:11pt 13pt 11pt 17pt; background:var(--ivory); border-top:0.5pt solid var(--border-cream); border-bottom:0.5pt solid var(--border-cream); position:relative; }
+.pullquote::before { content:''; position:absolute; left:0; top:0; bottom:0; width:3pt; background:var(--brand); border-radius:0 2pt 2pt 0; }
+.pullquote p { font-family:var(--serif); font-size:12pt; font-weight:500; line-height:1.45; color:var(--near-black); font-style:italic; margin:0 0 3pt; }
+.pullquote cite { font-family:var(--sans); font-size:7.5pt; color:var(--stone); font-style:normal; font-weight:500; letter-spacing:0.3px; display:block; }
+.two-col { display:grid; grid-template-columns:1fr 1fr; gap:14pt; margin:10pt 0; }
+.col-item { display:flex; gap:7pt; margin-bottom:6pt; align-items:flex-start; }
+.col-bullet { width:3.5pt; height:3.5pt; border-radius:50%; background:var(--brand); margin-top:4pt; flex-shrink:0; }
+.col-text { font-family:var(--serif); font-size:8.5pt; line-height:1.46; color:var(--charcoal); }
+.col-text strong { color:var(--near-black); font-weight:500; }
+.metrics-row { display:flex; gap:12pt; margin:12pt 0; }
+.metric { flex:1; background:var(--ivory); border:0.5pt solid var(--border-cream); border-top:2pt solid var(--brand); border-radius:3pt 3pt 4pt 4pt; padding:8pt 10pt 9pt; }
+.metric-value { font-family:var(--serif); font-size:17pt; font-weight:500; color:var(--brand); font-variant-numeric:tabular-nums; line-height:1; }
+.metric-label { font-family:var(--sans); font-size:7.5pt; color:var(--olive); margin-top:3pt; line-height:1.3; }
+.metric-sublabel { font-family:var(--sans); font-size:6.5pt; color:var(--stone); margin-top:1pt; }
+.timeline { margin:10pt 0; }
+.timeline-item { display:flex; gap:9pt; margin-bottom:7pt; }
+.timeline-date { font-family:var(--sans); font-size:7.5pt; font-weight:600; color:var(--stone); width:32pt; flex-shrink:0; padding-top:0.5pt; }
+.timeline-content { flex:1; border-left:0.75pt solid var(--border-soft); padding-left:9pt; }
+.timeline-title { font-family:var(--serif); font-size:8.5pt; font-weight:500; color:var(--near-black); margin-bottom:1.5pt; }
+.timeline-desc { font-family:var(--serif); font-size:8pt; line-height:1.4; color:var(--olive); margin:0; }
+.doc-footer { position:absolute; bottom:11mm; left:20mm; right:20mm; display:flex; flex-direction:column; align-items:center; gap:2pt; padding-top:6pt; border-top:0.3pt solid var(--border-warm); }
+.footer-line { font-family:var(--sans); font-size:7pt; color:var(--stone); text-align:center; line-height:1.4; }
+.footer-brand { color:var(--brand); font-weight:500; }
+.footer-conf { text-transform:uppercase; letter-spacing:0.3px; font-size:6.5pt; }
+.page-num { font-family:var(--sans); font-size:7.5pt; color:var(--stone); text-align:center; margin-top:2pt; }
+.pn-top { position:absolute; top:11mm; right:20mm; font-family:var(--sans); font-size:8pt; color:var(--stone); }
+@media print { body{background:none;} .page{box-shadow:none;width:100%;min-height:auto;} .pn-top{display:none;} }
+@media screen { body{background:#e0ded6;display:flex;align-items:flex-start;justify-content:center;padding:28px 16px;} .page{box-shadow:0 4px 24px rgba(20,20,19,0.10),0 1px 4px rgba(20,20,19,0.06);} }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="pn-top">01</div>
+
+  <div class="header">
+    <div class="header-eyebrow">Research · JAMS Paper · EFPM ISB · April 2026</div>
+    <h1 class="header-title">Platform Entrenchment &amp; Switching Cost Dynamics</h1>
+    <p class="header-subtitle">How digital platforms achieve durable user lock-in — and what determines the speed and depth of that entrenchment over time.</p>
+    <p class="meta">Author: Muralikrishnan B. · ISB EFPM Research Programme</p>
+    <p class="meta">Status: <span style="color:var(--charcoal)">Conceptual Model v1</span> · Classification: Research</p>
+    <div class="tags">
+      <span class="tag">Platform Economics</span>
+      <span class="tag">Switching Costs</span>
+      <span class="tag">S-D Logic</span>
+      <span class="tag">Orchestration</span>
+      <span class="tag">JAMS 2026</span>
+    </div>
+  </div>
+
+  <h2>Core Argument</h2>
+  <p>Platform entrenchment is not a single mechanism — it is a compounding system. Data, habits, integrations, and social costs reinforce each other, creating depth that a new entrant cannot shortcut regardless of price or UX quality.</p>
+
+  <div class="pullquote">
+    <p>"The moat is not any single switching cost — it is the time-compounded, feedback-reinforced depth that a challenger cannot shortcut."</p>
+    <cite>Hermes Unbound · Chapter 3 · Draft</cite>
+  </div>
+
+  <h2>Mechanism Architecture</h2>
+  <div class="two-col">
+    <div>
+      <div class="col-item"><div class="col-bullet"></div><div class="col-text"><strong>Data Moat</strong> — Behavioural history compounds into personalised output no new user can replicate without equivalent tenure.</div></div>
+      <div class="col-item"><div class="col-bullet"></div><div class="col-text"><strong>Integration Stack</strong> — API connections span multiple systems. Switching means rebuilding an ecosystem, not just a workflow.</div></div>
+      <div class="col-item"><div class="col-bullet"></div><div class="col-text"><strong>Reputation Capital</strong> — Reviews and ratings are non-transferable assets. Switching erases credibility built over years.</div></div>
+    </div>
+    <div>
+      <div class="col-item"><div class="col-bullet"></div><div class="col-text"><strong>Habit Architecture</strong> — Trigger → routine → reward loops make platform use invisible infrastructure, not a deliberate choice.</div></div>
+      <div class="col-item"><div class="col-bullet"></div><div class="col-text"><strong>Social Proof Cascade</strong> — Network effects make switching a collective decision, not an individual one.</div></div>
+      <div class="col-item"><div class="col-bullet"></div><div class="col-text"><strong>Cognitive Lock-in</strong> — Learning investment becomes identity. Leaving feels like skill depreciation.</div></div>
+    </div>
+  </div>
+
+  <h2>Research Programme</h2>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-date">Apr 2026</div>
+      <div class="timeline-content">
+        <div class="timeline-title">Conceptual Model — IRB Cleared</div>
+        <div class="timeline-desc">S-D Logic + Platform Economics hybrid. Interview protocol finalised. JAMS Special Issue submission window opens Jul 1.</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">May–Jun</div>
+      <div class="timeline-content">
+        <div class="timeline-title">Qualitative Fieldwork — 24 CXO Interviews</div>
+        <div class="timeline-desc">Semi-structured. fsQCA configurational analysis. Cross-industry: fintech, edtech, healthtech, commerce platforms.</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">Jul–Aug</div>
+      <div class="timeline-content">
+        <div class="timeline-title">Manuscript Submission — JAMS</div>
+        <div class="timeline-desc">Special Issue on Transformative Marketing Strategies. Closes August 31, 2026.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="doc-footer">
+    <div class="footer-line">EFPM Research Programme · Indian School of Business</div>
+    <div class="footer-line"><span class="footer-brand">Confidential</span> · Do Not Distribute</div>
+    <div class="page-num">01</div>
+  </div>
+</div>
+</body>
+</html>
